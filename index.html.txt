@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شبكة المليون الرقمية - لوحة الإعلانات التفاعلية</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0d1117;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+        header {
+            margin-bottom: 25px;
+        }
+        h1 {
+            color: #f39c12;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #8b949e;
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 15px auto;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        .stat-box {
+            background: #161b22;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+        }
+        .stat-box span {
+            color: #2ea44f;
+            font-weight: bold;
+        }
+
+        /* شبكة المربعات بمساحة واضحة لكل عميل */
+        .grid-container {
+            display: grid;
+            /* حجم كل مربع تم تعديله ليصبح بمساحة واضحة ومريحة للشعارات والأسماء */
+            grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+            gap: 6px;
+            max-width: 1050px;
+            margin: 0 auto;
+            background: #161b22;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #30363d;
+            max-height: 65vh;
+            overflow-y: auto;
+        }
+        .pixel {
+            width: 100%;
+            aspect-ratio: 1; /* مربع متساوي الأبعاد */
+            background-color: #21262d;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: #8b949e;
+            overflow: hidden;
+            border: 1px solid #30363d;
+        }
+        .pixel:hover {
+            transform: scale(1.08);
+            z-index: 10;
+            border-color: #f39c12;
+        }
+        /* المربع الفارغ المتاح للحجز */
+        .pixel.empty:hover {
+            background-color: #30363d;
+            color: #f39c12;
+        }
+        /* المربع المحجوز (للشركات) */
+        .pixel.reserved {
+            background-color: #1f6feb;
+            color: #ffffff;
+            cursor: pointer;
+            border-color: #388bfd;
+        }
+        .pixel.reserved:hover {
+            background-color: #388bfd;
+        }
+        .pixel.reserved span {
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 2px;
+        }
+
+        .cta-container {
+            margin-top: 25px;
+        }
+        .cta-btn {
+            padding: 12px 30px;
+            background-color: #f39c12;
+            color: #000;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cta-btn:hover {
+            background-color: #d35400;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        خلونا نملأ شبكة المليون 🚀</h1>
+        <p>مساحة خاصة لكل متجر أو مشروع برابط مباشر. اضغط على المربعات الزرقاء لزيارة الشركات الداعمة، أو احجز مربعك المتاح!</p>
+        
+        <div class="stats">
+            <div class="stat-box">المربعات المحجوزة: <span id="reserved-count">0</span></div>
+            <div class="stat-box">المتبقية: <span id="remaining-count">0</span></div>
+        </div>
+    </header>
+
+    <!-- شبكة المربعات -->
+    <div class="grid-container" id="grid"></div>
+
+    <div class="cta-container">
+        <button class="cta-btn" onclick="bookPixel()">احجز مربعك برابط موقعك الآن</button>
+    </div>
+
+    <script>
+        const totalPixels = 200; // عدد المربعات الافتراضي (يمكنك زيادته لاحقاً)
+
+        // قاعدة بيانات المربعات المحجوزة (هنا يظهر اسم المتجر ورابطه مباشرة داخل المربع)
+        const reservedData = {
+            5: { name: "متجر تقني", url: "https://x.com" }, 
+            12: { name: "منصة ذكية", url: "https://google.com" }, 
+            22: { name: "قهوة مختصة", url: "https://github.com" } 
+        };
+
+        const grid = document.getElementById('grid');
+        const reservedKeys = Object.keys(reservedData).map(Number);
+        
+        // تحديث العدادات
+        document.getElementById('reserved-count').innerText = reservedKeys.length;
+        document.getElementById('remaining-count').innerText = totalPixels - reservedKeys.length;
+
+        // بناء الشبكة
+        for (let i = 1; i <= totalPixels; i++) {
+            const pixel = document.createElement('div');
+            pixel.classList.add('pixel');
+
+            if (reservedKeys.includes(i)) {
+                pixel.classList.add('reserved');
+                const data = reservedData[i];
+                pixel.title = `مربع #${i} - ${data.name} (اضغط لزيارة الموقع)`;
+                pixel.innerHTML = `<span>${data.name}</span><small style="font-size:0.6rem; opacity:0.8;">#${i}</small>`;
+
+                pixel.addEventListener('click', () => {
+                    window.open(data.url, '_blank');
+                });
+            } else {
+                pixel.classList.add('empty');
+                pixel.title = `مربع رقم #${i} (متاح للحجز)`;
+                pixel.innerHTML = `<span>#${i}</span>`;
+                
+                pixel.addEventListener('click', () => {
+                    const confirmBook = confirm(`المربع رقم #${i} متاح للحجز!\nهل تريد التواصل لحجزه وإدراج اسم متجرك ورابطك فيه؟`);
+                    if (confirmBook) {
+                        bookPixelWithNumber(i);
+                    }
+                });
+            }
+            
+            grid.appendChild(pixel);
+        }
+
+        function bookPixel() {
+            const phone = "966500000000"; // استبدل برقم واتسابك
+            const message = encodeURIComponent("أهلاً، أرغب في حجز مربع إعلاني على شبكة المليون برابط موقعي واسم متجري.");
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+
+        function bookPixelWithNumber(pixelNum) {
+            const phone = "966500000000"; // استبدل برقم واتسابك
+            const message = encodeURIComponent(`أهلاً، أرغب في حجز المربع رقم #${pixelNum} على شبكة المليون! اسم متجري هو: [اكتب اسمك] ورابط موقعي هو: [ضع رابطك]`);
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
