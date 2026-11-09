@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة المليون ريال السعودية</title>
+    <style>
+        :root {
+            --bg-color: #121418;
+            --card-bg: #1a1d24;
+            --text-color: #e2e8f0;
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --grid-line: #2a2f38;
+            --sold-bg: #1e293b;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        /* شبكة المليون بكسل (ممثلة هنا بمصفوفة تفاعلية مصغرة كمثال عملي) */
+        .pixel-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 4px;
+            background-color: var(--grid-line);
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .pixel-cell {
+            aspect-ratio: 1;
+            background-color: #21262d;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .pixel-cell:hover {
+            background-color: var(--accent-color);
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .pixel-cell.sold {
+            background-color: var(--sold-bg);
+            border: 1px solid var(--accent-color);
+            color: #3b82f6;
+            cursor: default;
+            transform: none !important;
+        }
+
+        /* نافذة الطلب المنبثقة */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+            color: #fff;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            background: #121418;
+            border: 1px solid var(--grid-line);
+            border-radius: 6px;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .close-btn {
+            background: #ef4444;
+            margin-top: 8px;
+        }
+        .close-btn:hover { background: #dc2626; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>صفحة المليون ريال السعودية</h1>
+        <p>احجز مساحتك الإعلانية الدائمة الآن - ادعم المشاريع الوطنية الناشئة</p>
+    </header>
+
+    <div class="container">
+        <div class="pixel-grid" id="gridContainer">
+            <!-- سيتم توليد المربعات برمجياً هنا -->
+        </div>
+    </div>
+
+    <!-- نافذة الحجز والدفع اليدوي -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <h3>حجز المساحة الإعلانية</h3>
+            <p id="selectedCellInfo">المربع رقم: --</p>
+            <form id="adForm" onsubmit="submitOrder(event)">
+                <label>اسم المتجر / الشركة:</label>
+                <input type="text" id="storeName" required placeholder="مثال: مشتل السحاب الزراعي">
+                
+                <label>رابط الموقع أو الواتساب:</label>
+                <input type="text" id="storeLink" required placeholder="https://...">
+
+                <button type="submit" class="btn">تأكيد الطلب وطرق الدفع (STC Pay / تحويل)</button>
+                <button type="button" class="btn close-btn" onclick="closeModal()">إلغاء</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const gridContainer = document.getElementById('gridContainer');
+        const orderModal = document.getElementById('orderModal');
+        const selectedCellInfo = document.getElementById('selectedCellInfo');
+        let activeCell = null;
+
+        // بناء شبكة تجريبية (مثال لـ 50 مربع كمرحلة أولى)
+        for (let i = 1; i <= 50; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('pixel-cell');
+            cell.innerText = i;
+            cell.dataset.id = i;
+            
+            // مثال لافتراض أن بعض المربعات محجوزة مسبقاً
+            if (i === 7 || i === 15) {
+                cell.classList.add('sold');
+                cell.innerText = 'مباع';
+            } else {
+                cell.click(); // لتفعيل النقر
+                cell.onclick = () => openModal(i, cell);
+            }
+            gridContainer.appendChild(cell);
+        }
+
+        function openModal(id, cellElement) {
+            activeCell = cellElement;
+            selectedCellInfo.innerText = `لقد اخترت المساحة رقم: ${id} (السعر: 100 ريال)`;
+            orderModal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            orderModal.style.display = 'none';
+        }
+
+        function submitOrder(event) {
+            event.preventDefault();
+            const name = document.getElementById('storeName').value;
+            alert(`شكراً لك ${name}!\n\nلإتمام الحجز وتفعيل المساحة فوراً، يرجى تحويل مبلغ 100 ريال عبر:\n- STC Pay: 0599156610\n- أو التحويل البنكي المباشر\n\nثم أرسل إيصال التحويل مع رقم الطلب عبر الواتساب لتنزيل إعلانك فوراً.`);
+            closeModal();
+            // محاكاة حجز البلاط
+            activeCell.classList.add('sold');
+            activeCell.innerText = 'حجز مؤقت';
+            activeCell.onclick = null;
+        }
+    </script>
+</body>
+</html>
