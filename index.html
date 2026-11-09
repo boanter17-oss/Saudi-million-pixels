@@ -3,224 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة المليون ريال السعودية</title>
+    <title>صفحة المليون بكسل السعودية</title>
     <style>
+        /* الألوان الأساسية والتنسيق العام */
         :root {
-            --bg-color: #121418;
-            --card-bg: #1a1d24;
-            --text-color: #e2e8f0;
-            --accent-color: #3b82f6;
-            --accent-hover: #2563eb;
-            --grid-line: #2a2f38;
-            --sold-bg: #1e293b;
+            --navy-blue: #0A192F;
+            --gold: #D4AF37;
+            --dark-gold: #AA8C2C;
         }
 
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
             margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 0;
+            background-color: var(--navy-blue);
+            color: var(--gold);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
         }
 
         header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        h1 {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-            color: #ffffff;
-        }
-
-        p {
-            color: #94a3b8;
-            font-size: 0.95rem;
-        }
-
-        .container {
-            max-width: 900px;
-            width: 100%;
-            background: var(--card-bg);
             padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
-
-        /* شبكة المليون بكسل (ممثلة هنا بمصفوفة تفاعلية مصغرة كمثال عملي) */
-        .pixel-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 4px;
-            background-color: var(--grid-line);
-            padding: 4px;
-            border-radius: 8px;
+            border-bottom: 2px solid var(--gold);
             margin-bottom: 20px;
         }
 
-        .pixel-cell {
-            aspect-ratio: 1;
-            background-color: #21262d;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: #fff;
+        }
+
+        /* تخطيط الصفحة الرئيسي */
+        .main-layout {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 0 20px;
+            overflow-x: auto; /* للسماح بالتمرير في الشاشات الصغيرة */
+        }
+
+        /* المساحات الجانبية (السدو والزخارف الجصية) */
+        .side-pattern {
+            width: 150px;
+            height: 1000px;
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75rem;
-            color: #64748b;
+            writing-mode: vertical-rl;
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            background-size: cover;
+            background-position: center;
         }
 
-        .pixel-cell:hover {
-            background-color: var(--accent-color);
-            color: #fff;
-            transform: scale(1.05);
+        /* ضع مسار صورة السدو هنا مستقبلاً */
+        .sadu-right {
+            /* background-image: url('sadu-pattern.png'); */
         }
 
-        .pixel-cell.sold {
-            background-color: var(--sold-bg);
-            border: 1px solid var(--accent-color);
-            color: #3b82f6;
-            cursor: default;
-            transform: none !important;
+        /* ضع مسار صورة الزخارف الأحسائية هنا مستقبلاً */
+        .ahsa-left {
+            /* background-image: url('ahsa-pattern.png'); */
         }
 
-        /* نافذة الطلب المنبثقة */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            justify-content: center;
-            align-items: center;
+        /* شبكة المليون بكسل */
+        .pixel-grid-container {
+            width: 1000px;
+            height: 1000px;
+            background-color: #ffffff;
+            position: relative; /* ضروري لتموضع الإعلانات داخله */
+            border: 3px solid var(--gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            /* رسم شبكة وهمية للتوضيح (كل مربع 10x10 بكسل) */
+            background-image: 
+                linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+                linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+            background-size: 10px 10px;
         }
 
-        .modal-content {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
-
-        .modal-content h3 {
-            margin-top: 0;
-            color: #fff;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0 15px 0;
-            background: #121418;
-            border: 1px solid var(--grid-line);
-            border-radius: 6px;
-            color: #fff;
+        /* تنسيق الإعلانات (البلوكات) */
+        .ad-block {
+            position: absolute;
+            display: block;
+            text-decoration: none;
             box-sizing: border-box;
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: transform 0.2s, z-index 0.2s;
         }
 
-        .btn {
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
+        .ad-block:hover {
+            transform: scale(1.1);
+            z-index: 10;
+            border: 1px solid var(--gold);
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        /* زر الحجز */
+        .cta-button {
+            display: inline-block;
+            margin: 30px 0;
+            padding: 15px 40px;
+            background-color: var(--gold);
+            color: var(--navy-blue);
+            font-size: 1.5rem;
             font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        .btn:hover {
-            background: var(--accent-hover);
+        .cta-button:hover {
+            background-color: var(--dark-gold);
         }
 
-        .close-btn {
-            background: #ef4444;
-            margin-top: 8px;
-        }
-        .close-btn:hover { background: #dc2626; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>صفحة المليون ريال السعودية</h1>
-        <p>احجز مساحتك الإعلانية الدائمة الآن - ادعم المشاريع الوطنية الناشئة</p>
+        <h1>صفحة المليون بكسل السعودية</h1>
+        <div class="subtitle">المساحة الإعلانية الأبرز للشركات والمتاجر | امتلك بكسلاتك الآن</div>
     </header>
 
-    <div class="container">
-        <div class="pixel-grid" id="gridContainer">
-            <!-- سيتم توليد المربعات برمجياً هنا -->
-        </div>
-    </div>
+    <div class="main-layout">
+        <!-- الجانب الأيمن: نقوش السدو -->
+        <aside class="side-pattern sadu-right">
+            مساحة نقوش السدو
+        </aside>
 
-    <!-- نافذة الحجز والدفع اليدوي -->
-    <div class="modal" id="orderModal">
-        <div class="modal-content">
-            <h3>حجز المساحة الإعلانية</h3>
-            <p id="selectedCellInfo">المربع رقم: --</p>
-            <form id="adForm" onsubmit="submitOrder(event)">
-                <label>اسم المتجر / الشركة:</label>
-                <input type="text" id="storeName" required placeholder="مثال: مشتل السحاب الزراعي">
-                
-                <label>رابط الموقع أو الواتساب:</label>
-                <input type="text" id="storeLink" required placeholder="https://...">
-
-                <button type="submit" class="btn">تأكيد الطلب وطرق الدفع (STC Pay / تحويل)</button>
-                <button type="button" class="btn close-btn" onclick="closeModal()">إلغاء</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        const gridContainer = document.getElementById('gridContainer');
-        const orderModal = document.getElementById('orderModal');
-        const selectedCellInfo = document.getElementById('selectedCellInfo');
-        let activeCell = null;
-
-        // بناء شبكة تجريبية (مثال لـ 50 مربع كمرحلة أولى)
-        for (let i = 1; i <= 50; i++) {
-            const cell = document.createElement('div');
-            cell.classList.add('pixel-cell');
-            cell.innerText = i;
-            cell.dataset.id = i;
+        <!-- الوسط: مساحة المليون بكسل -->
+        <main class="pixel-grid-container">
             
-            // مثال لافتراض أن بعض المربعات محجوزة مسبقاً
-            if (i === 7 || i === 15) {
-                cell.classList.add('sold');
-                cell.innerText = 'مباع';
-            } else {
-                cell.click(); // لتفعيل النقر
-                cell.onclick = () => openModal(i, cell);
-            }
-            gridContainer.appendChild(cell);
-        }
+            <!-- 
+                أمثلة لإضافة إعلانات العملاء يدوياً بعد التحويل:
+                كل 10 بكسل = 1 بلوك
+                يتم تحديد الموقع عبر (right) و (top) 
+            -->
 
-        function openModal(id, cellElement) {
-            activeCell = cellElement;
-            selectedCellInfo.innerText = `لقد اخترت المساحة رقم: ${id} (السعر: 100 ريال)`;
-            orderModal.style.display = 'flex';
-        }
+            <!-- مثال 1: عميل اشترى مساحة 100x100 بكسل (100 بلوك = 10,000 ريال) في الزاوية العلوية اليمنى -->
+            <a href="https://example.com" class="ad-block" title="شركة العقارات الأولى"
+               style="width: 100px; height: 100px; right: 0px; top: 0px; background-color: #333; background-image: url('logo1.jpg'); background-size: cover;">
+            </a>
 
-        function closeModal() {
-            orderModal.style.display = 'none';
-        }
+            <!-- مثال 2: عميل اشترى مساحة 50x50 بكسل في مكان آخر -->
+            <a href="https://example2.com" class="ad-block" title="مشتل الأشجار"
+               style="width: 50px; height: 50px; right: 200px; top: 150px; background-color: #28a745; background-image: url('logo2.jpg'); background-size: cover;">
+            </a>
 
-        function submitOrder(event) {
-            event.preventDefault();
-            const name = document.getElementById('storeName').value;
-            alert(`شكراً لك ${name}!\n\nلإتمام الحجز وتفعيل المساحة فوراً، يرجى تحويل مبلغ 100 ريال عبر:\n- STC Pay: 0599156610\n- أو التحويل البنكي المباشر\n\nثم أرسل إيصال التحويل مع رقم الطلب عبر الواتساب لتنزيل إعلانك فوراً.`);
-            closeModal();
-            // محاكاة حجز البلاط
-            activeCell.classList.add('sold');
-            activeCell.innerText = 'حجز مؤقت';
-            activeCell.onclick = null;
-        }
-    </script>
+        </main>
+
+        <!-- الجانب الأيسر: الزخارف الجصية -->
+        <aside class="side-pattern ahsa-left">
+            مساحة الزخارف الأحسائية
+        </aside>
+    </div>
+
+    <!-- زر التواصل المباشر للحجز -->
+    <a href="https://wa.me/966599156610?text=أهلاً،%20أرغب%20بحجز%20مساحة%20إعلانية%20في%20صفحة%20المليون%20بكسل" target="_blank" class="cta-button">
+        احجز مساحتك الآن عبر الواتساب
+    </a>
+
 </body>
 </html>
