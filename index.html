@@ -24,7 +24,7 @@
             text-align: center;
         }
 
-        /* ---------- شريط التقدم والتسعير الديناميكي (مُحدّث) ---------- */
+        /* ---------- شريط التقدم والتسعير الديناميكي ---------- */
         .pricing-banner {
             background-color: var(--pure-white);
             border-bottom: 2px solid var(--saudi-green);
@@ -73,11 +73,10 @@
             border-radius: 20px;
             border: 1px solid #CBD5E0;
             height: 25px;
-            position: relative; /* ضروري لضبط النص واللون */
+            position: relative;
             overflow: hidden;
         }
 
-        /* اللون الأخضر الذي يمتلئ */
         .progress-fill {
             position: absolute;
             top: 0;
@@ -88,7 +87,6 @@
             z-index: 1;
         }
 
-        /* النص الثابت في المنتصف لكي لا يتشوه عند النسب الصغيرة */
         .progress-text {
             position: absolute;
             top: 0;
@@ -165,12 +163,12 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            gap: 20px;
+            gap: 20px; /* الفراغ الأساسي الذي ستجلس فيه الأزرار */
             padding: 0 20px;
             overflow-x: auto;
         }
 
-        /* الزخارف الجانبية (تعرض الصور) */
+        /* الزخارف الجانبية */
         .side-pattern {
             width: 100px;
             height: 1000px;
@@ -191,50 +189,49 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* خلفيات السدو والزخارف (أضف الصور هنا لاحقاً) */
         .sadu-right {
             background-color: #8B0000;
-            /* background-image: url('sadu.jpg'); */
         }
 
         .ahsa-left {
             background-color: #EAEAEA;
             color: var(--saudi-green);
             text-shadow: none;
-            /* background-image: url('ahsa.jpg'); */
         }
 
-        /* ---------- الحاوية الخارجية (تضم الشبكة وأزرار التحكم العمودية) ---------- */
+        /* ---------- الحاوية الخارجية (تضم الشبكة وأزرار التحكم العائمة) ---------- */
         .grid-outer-wrapper {
-            position: relative; /* لتثبيت أزرار التحكم داخلها */
+            position: relative;
             max-width: 1000px;
         }
 
-        /* أزرار التكبير العمودية (مثل خرائط جوجل) */
-        .zoom-controls-vertical {
-            position: absolute;
-            top: 15px;
-            right: 15px;
+        /* أزرار التكبير العائمة (بالضبط في الفراغ) */
+        .zoom-controls-wrapper {
+            position: sticky;
+            top: 120px; /* المسافة من الأعلى عند النزول بالصفحة */
+            float: right; /* سحبها لليمين */
+            margin-right: -24px; /* سحبها للخارج لتستقر بالضبط في الفراغ (20 بكسل) */
+            width: 20px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 5px;
             z-index: 100;
         }
 
         .zoom-btn-v {
-            width: 40px;
-            height: 40px;
+            width: 20px;
+            height: 25px;
             background-color: var(--pure-white);
             color: var(--saudi-green);
             border: 2px solid var(--saudi-green);
-            border-radius: 8px;
-            font-size: 1.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem; /* خط صغير جداً ليناسب الفراغ */
             font-weight: bold;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
             transition: all 0.2s;
             padding: 0;
         }
@@ -242,6 +239,7 @@
         .zoom-btn-v:hover {
             background-color: var(--saudi-green);
             color: var(--pure-white);
+            transform: scale(1.1);
         }
 
         /* حاوية التمرير للشبكة */
@@ -292,12 +290,12 @@
             filter: grayscale(100%);
         }
 
-        /* ---------- زر الواتساب العائم (بديل الأزرار المزعجة) ---------- */
+        /* ---------- زر الواتساب العائم ---------- */
         .floating-whatsapp {
             position: fixed;
             bottom: 30px;
-            left: 30px; /* في اليسار ليكون بعيداً عن أزرار التكبير */
-            background-color: #25D366; /* لون الواتساب الرسمي */
+            left: 30px;
+            background-color: #25D366;
             color: white;
             padding: 12px 25px;
             border-radius: 50px;
@@ -319,7 +317,7 @@
 
         /* ---------- التذييل ونافذة الشروط ---------- */
         footer {
-            margin: 30px 0 60px 0; /* مسافة سفلية أكبر لتجنب تغطية الزر العائم */
+            margin: 30px 0 60px 0;
             font-size: 0.9rem;
             color: #718096;
         }
@@ -384,10 +382,20 @@
                 text-align: center;
             }
             .side-pattern {
-                display: none; /* إخفاء الزخارف بالجوال */
+                display: none; 
             }
             .main-layout {
                 padding: 0 10px;
+            }
+            /* في الجوال لا يوجد فراغ لأن الزخارف مخفية، لذا ندخل الأزرار للداخل قليلاً ونكبرها للمس */
+            .zoom-controls-wrapper {
+                margin-right: 5px;
+                width: 28px;
+            }
+            .zoom-btn-v {
+                width: 28px;
+                height: 30px;
+                font-size: 0.9rem;
             }
             .grid-scroll-wrapper {
                 width: 100%;
@@ -407,7 +415,7 @@
 </head>
 <body>
 
-    <!-- شريط التقدم والتسعير الديناميكي (مُحدّث لعدم خروج النص) -->
+    <!-- شريط التقدم والتسعير الديناميكي -->
     <div class="pricing-banner">
         <div class="banner-content">
             <div class="stats-text">
@@ -419,9 +427,7 @@
                 </div>
             </div>
             <div class="progress-track">
-                <!-- الشريط الأخضر الذي يتمدد -->
                 <div class="progress-fill" style="width: 5%;"></div>
-                <!-- النص الثابت في المنتصف -->
                 <div class="progress-text">تم بيع 5%</div>
             </div>
         </div>
@@ -450,13 +456,13 @@
             <!-- مساحة نقوش السدو -->
         </aside>
 
-        <!-- الوسط: الحاوية الخارجية التي تضم الشبكة وأزرار التحكم -->
+        <!-- الوسط: الحاوية الخارجية -->
         <div class="grid-outer-wrapper">
             
-            <!-- أزرار التكبير العمودية العائمة -->
-            <div class="zoom-controls-vertical">
+            <!-- أزرار التكبير العائمة (الآن في الفراغ وتطفو عند النزول) -->
+            <div class="zoom-controls-wrapper">
                 <button id="zoom-in" class="zoom-btn-v" title="تكبير">➕</button>
-                <button id="zoom-reset" class="zoom-btn-v" title="إعادة الضبط" style="font-size: 1.2rem;">🔄</button>
+                <button id="zoom-reset" class="zoom-btn-v" title="إعادة الضبط" style="font-size: 0.9rem;">🔄</button>
                 <button id="zoom-out" class="zoom-btn-v" title="تصغير">➖</button>
             </div>
 
@@ -490,7 +496,7 @@
         </aside>
     </div>
 
-    <!-- زر الواتساب العائم (بديل الأزرار القديمة) -->
+    <!-- زر الواتساب العائم -->
     <a href="https://wa.me/966599156610?text=أهلاً،%20أرغب%20بحجز%20مساحة%20إعلانية%20في%20الواجهة%20السعودية" target="_blank" class="floating-whatsapp">
         💬 احجز مساحتك الآن
     </a>
@@ -544,7 +550,7 @@
                 });
             });
 
-            // 2. برمجة التكبير والتصغير المتوافقة مع الجوال
+            // 2. برمجة التكبير والتصغير
             let baseScale = window.innerWidth <= 768 ? 0.4 : 1;
             let currentScale = baseScale;
             
