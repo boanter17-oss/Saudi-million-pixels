@@ -3,59 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة المليون بكسل السعودية</title>
+    <title>الواجهة السعودية - دليل الأعمال الرقمي</title>
     <style>
-        /* الألوان الأساسية والتنسيق العام */
+        /* الألوان الأساسية - الهوية السعودية */
         :root {
-            --navy-blue: #0A192F;
-            --gold: #D4AF37;
-            --dark-gold: #AA8C2C;
+            --saudi-green: #006C35;
+            --light-green: #118D4D;
+            --pure-white: #FFFFFF;
+            --off-white: #F8F9FA;
+            --accent-gold: #C5A059;
+            --dark-text: #2D3748;
         }
 
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--navy-blue);
-            color: var(--gold);
+            background-color: var(--off-white);
+            color: var(--dark-text);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
         }
 
+        /* ---------- شريط التقدم والتسعير الديناميكي ---------- */
+        .pricing-banner {
+            background-color: var(--pure-white);
+            border-bottom: 2px solid var(--saudi-green);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            direction: rtl;
+        }
+
+        .banner-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stats-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--dark-text);
+            font-size: 1.1rem;
+        }
+
+        .current-price {
+            background-color: var(--saudi-green);
+            color: var(--pure-white);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .urgency-text {
+            color: #E53E3E;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        .progress-track {
+            width: 100%;
+            background-color: #EDF2F7;
+            border-radius: 20px;
+            border: 1px solid #CBD5E0;
+            height: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--light-green) 0%, var(--saudi-green) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--pure-white);
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: width 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* ---------- رأس الصفحة ---------- */
         header {
             padding: 20px;
-            border-bottom: 2px solid var(--gold);
+            background-color: var(--saudi-green);
+            color: var(--pure-white);
+            border-bottom: 4px solid var(--accent-gold);
             margin-bottom: 20px;
         }
 
         h1 {
             margin: 0;
             font-size: 2.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
 
         .subtitle {
             font-size: 1.2rem;
             margin-top: 10px;
-            color: #fff;
+            color: #E2E8F0;
         }
 
-        /* تخطيط الصفحة الرئيسي */
+        /* ---------- شريط التصفية التفاعلية ---------- */
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 0 20px;
+        }
+
+        .filter-btn {
+            background-color: var(--pure-white);
+            color: var(--saudi-green);
+            border: 2px solid var(--saudi-green);
+            padding: 8px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--saudi-green);
+            color: var(--pure-white);
+            box-shadow: 0 4px 10px rgba(0, 108, 53, 0.3);
+        }
+
+        /* ---------- تخطيط الصفحة الرئيسي وأزرار التكبير ---------- */
         .main-layout {
             display: flex;
             justify-content: center;
             align-items: flex-start;
             gap: 20px;
             padding: 0 20px;
-            overflow-x: auto; /* للسماح بالتمرير في الشاشات الصغيرة */
+            overflow-x: auto;
         }
 
-        /* المساحات الجانبية (السدو والزخارف الجصية) */
         .side-pattern {
             width: 150px;
             height: 1000px;
-            border: 2px solid var(--gold);
+            border: 2px solid var(--accent-gold);
             border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: var(--pure-white);
+            color: var(--saudi-green);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -64,30 +169,69 @@
             letter-spacing: 5px;
             background-size: cover;
             background-position: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
         }
 
-        /* ضع مسار صورة السدو هنا مستقبلاً */
-        .sadu-right {
-            /* background-image: url('sadu-pattern.png'); */
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1000px;
         }
 
-        /* ضع مسار صورة الزخارف الأحسائية هنا مستقبلاً */
-        .ahsa-left {
-            /* background-image: url('ahsa-pattern.png'); */
+        .zoom-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            background-color: var(--pure-white);
+            padding: 8px 15px;
+            border-radius: 25px;
+            border: 1px solid var(--accent-gold);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        /* شبكة المليون بكسل */
+        .zoom-btn {
+            background-color: var(--off-white);
+            color: var(--saudi-green);
+            border: 1px solid var(--saudi-green);
+            border-radius: 5px;
+            padding: 5px 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .zoom-btn:hover {
+            background-color: var(--saudi-green);
+            color: var(--pure-white);
+        }
+
+        #zoom-reset {
+            font-size: 1rem;
+        }
+
+        /* حاوية التمرير للشبكة */
+        .grid-scroll-wrapper {
+            width: 1000px;
+            height: 1000px;
+            overflow: auto; /* لإظهار شريط التمرير عند التكبير */
+            border: 3px solid var(--saudi-green);
+            box-shadow: 0 0 20px rgba(0, 108, 53, 0.15);
+            background-color: var(--pure-white);
+        }
+
+        /* شبكة المليون بكسل (تدعم التكبير) */
         .pixel-grid-container {
             width: 1000px;
             height: 1000px;
-            background-color: #ffffff;
-            position: relative; /* ضروري لتموضع الإعلانات داخله */
-            border: 3px solid var(--gold);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-            /* رسم شبكة وهمية للتوضيح (كل مربع 10x10 بكسل) */
+            position: relative;
+            transform-origin: top right; /* التكبير يبدأ من الزاوية اليمنى لأن الاتجاه RTL */
+            transition: transform 0.3s ease;
             background-image: 
-                linear-gradient(to right, #f0f0f0 1px, transparent 1px),
-                linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+                linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+                linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
             background-size: 10px 10px;
         }
 
@@ -98,44 +242,148 @@
             text-decoration: none;
             box-sizing: border-box;
             border: 1px solid rgba(0,0,0,0.1);
-            transition: transform 0.2s, z-index 0.2s;
+            transition: transform 0.3s ease, opacity 0.3s ease, z-index 0.3s ease;
         }
 
         .ad-block:hover {
             transform: scale(1.1);
             z-index: 10;
-            border: 1px solid var(--gold);
-            box-shadow: 0 0 10px var(--gold);
+            border: 1px solid var(--accent-gold);
+            box-shadow: 0 0 12px var(--saudi-green);
         }
 
-        /* زر الحجز */
+        .ad-block.dimmed {
+            opacity: 0.1;
+            pointer-events: none;
+            filter: grayscale(100%);
+        }
+
+        /* ---------- أزرار وتذييل الصفحة ---------- */
         .cta-button {
             display: inline-block;
-            margin: 30px 0;
+            margin: 30px 0 10px 0;
             padding: 15px 40px;
-            background-color: var(--gold);
-            color: var(--navy-blue);
+            background-color: var(--saudi-green);
+            color: var(--pure-white);
             font-size: 1.5rem;
             font-weight: bold;
             text-decoration: none;
-            border-radius: 5px;
-            border: none;
+            border-radius: 8px;
+            border: 2px solid var(--saudi-green);
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 108, 53, 0.2);
         }
 
         .cta-button:hover {
-            background-color: var(--dark-gold);
+            background-color: var(--pure-white);
+            color: var(--saudi-green);
         }
 
+        footer {
+            margin: 20px 0 40px 0;
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .terms-link {
+            color: var(--saudi-green);
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* ---------- نافذة الشروط والأحكام المنبثقة ---------- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--pure-white);
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            text-align: right;
+            position: relative;
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .modal-content h2 {
+            color: var(--saudi-green);
+            margin-top: 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        .modal-content ol {
+            line-height: 1.8;
+            color: var(--dark-text);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #E53E3E;
+        }
+
+        @media (max-width: 768px) {
+            .stats-text {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
 
+    <!-- شريط التقدم والتسعير الديناميكي -->
+    <div class="pricing-banner">
+        <div class="banner-content">
+            <div class="stats-text">
+                <div>
+                    <span class="current-price">المرحلة الحالية: 100 ريال / للبلوك</span>
+                </div>
+                <div class="urgency-text">
+                    🔥 انتبه: السعر سيرتفع إلى الضعف (200 ريال) عند الوصول لـ 50%
+                </div>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" style="width: 5%;">
+                    تم بيع 5%
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- رأس الصفحة -->
     <header>
-        <h1>صفحة المليون بكسل السعودية</h1>
-        <div class="subtitle">المساحة الإعلانية الأبرز للشركات والمتاجر | امتلك بكسلاتك الآن</div>
+        <h1>الواجهة السعودية</h1>
+        <div class="subtitle">دليل الأعمال الرقمي الأبرز | امتلك مساحتك الإعلانية الآن</div>
     </header>
+
+    <!-- شريط التصفية التفاعلية للأقسام -->
+    <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">الكل</button>
+        <button class="filter-btn" data-filter="real-estate">عقارات ومقاولات</button>
+        <button class="filter-btn" data-filter="cars">سيارات وخدماتها</button>
+        <button class="filter-btn" data-filter="medical">صحة وتجميل</button>
+        <button class="filter-btn" data-filter="commerce">تجارة ومطاعم</button>
+        <button class="filter-btn" data-filter="agriculture">زراعة وبيئة</button>
+    </div>
 
     <div class="main-layout">
         <!-- الجانب الأيمن: نقوش السدو -->
@@ -143,26 +391,41 @@
             مساحة نقوش السدو
         </aside>
 
-        <!-- الوسط: مساحة المليون بكسل -->
-        <main class="pixel-grid-container">
+        <!-- الوسط: أزرار التكبير ومساحة الواجهة -->
+        <div class="center-content">
             
-            <!-- 
-                أمثلة لإضافة إعلانات العملاء يدوياً بعد التحويل:
-                كل 10 بكسل = 1 بلوك
-                يتم تحديد الموقع عبر (right) و (top) 
-            -->
+            <!-- أزرار التكبير والتصغير -->
+            <div class="zoom-controls">
+                <button id="zoom-in" class="zoom-btn" title="تكبير">+</button>
+                <button id="zoom-reset" class="zoom-btn" title="الحجم الأصلي">↺ إعادة الضبط</button>
+                <button id="zoom-out" class="zoom-btn" title="تصغير">-</button>
+            </div>
 
-            <!-- مثال 1: عميل اشترى مساحة 100x100 بكسل (100 بلوك = 10,000 ريال) في الزاوية العلوية اليمنى -->
-            <a href="https://example.com" class="ad-block" title="شركة العقارات الأولى"
-               style="width: 100px; height: 100px; right: 0px; top: 0px; background-color: #333; background-image: url('logo1.jpg'); background-size: cover;">
-            </a>
+            <!-- حاوية التمرير للشبكة -->
+            <div class="grid-scroll-wrapper">
+                <main class="pixel-grid-container" id="pixelGrid">
+                    
+                    <!-- إعلان تجريبي 1 (عقارات) -->
+                    <a href="#" class="ad-block" data-category="real-estate" title="مكتب وسيط عقاري"
+                       style="width: 100px; height: 100px; right: 0px; top: 0px; background-color: #2D3748; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold; border-radius: 4px;">
+                       إعلان عقاري
+                    </a>
 
-            <!-- مثال 2: عميل اشترى مساحة 50x50 بكسل في مكان آخر -->
-            <a href="https://example2.com" class="ad-block" title="مشتل الأشجار"
-               style="width: 50px; height: 50px; right: 200px; top: 150px; background-color: #28a745; background-image: url('logo2.jpg'); background-size: cover;">
-            </a>
+                    <!-- إعلان تجريبي 2 (زراعة) -->
+                    <a href="#" class="ad-block" data-category="agriculture" title="مشتل زراعي"
+                       style="width: 80px; height: 80px; right: 150px; top: 50px; background-color: #118D4D; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold; border-radius: 4px;">
+                       إعلان زراعي
+                    </a>
 
-        </main>
+                    <!-- إعلان تجريبي 3 (سيارات) -->
+                    <a href="#" class="ad-block" data-category="cars" title="وكالة سيارات"
+                       style="width: 150px; height: 50px; right: 300px; top: 200px; background-color: #C5A059; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold; border-radius: 4px;">
+                       إعلان سيارات
+                    </a>
+
+                </main>
+            </div>
+        </div>
 
         <!-- الجانب الأيسر: الزخارف الجصية -->
         <aside class="side-pattern ahsa-left">
@@ -171,9 +434,106 @@
     </div>
 
     <!-- زر التواصل المباشر للحجز -->
-    <a href="https://wa.me/966599156610?text=أهلاً،%20أرغب%20بحجز%20مساحة%20إعلانية%20في%20صفحة%20المليون%20بكسل" target="_blank" class="cta-button">
+    <a href="https://wa.me/966599156610?text=أهلاً،%20أرغب%20بحجز%20مساحة%20إعلانية%20في%20الواجهة%20السعودية" target="_blank" class="cta-button">
         احجز مساحتك الآن عبر الواتساب
     </a>
 
+    <!-- التذييل مع رابط الشروط -->
+    <footer>
+        © 2026 الواجهة السعودية. جميع الحقوق محفوظة. <br>
+        <span class="terms-link" id="openTerms">الشروط والأحكام</span>
+    </footer>
+
+    <!-- نافذة الشروط والأحكام (Modal) -->
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeTerms">×</button>
+            <h2>الشروط والأحكام</h2>
+            <ol>
+                <li><strong>سياسة المحتوى:</strong> يلتزم المعلن بعدم نشر أي شعار أو رابط يخالف الأنظمة والقوانين في المملكة العربية السعودية (مثل: المواقع المشبوهة، الاحتيال المالي، أو المحتوى الخادش). يحق للإدارة إزالة أي إعلان مخالف فوراً دون استرداد المبلغ.</li>
+                <li><strong>الاسترجاع والتعديل:</strong> بمجرد تحويل المبلغ ونشر البلوك الإعلاني، لا يمكن استرجاع المبلغ نهائياً. يُسمح للمعلن بتعديل الرابط أو الشعار (مرة واحدة فقط مجاناً) خلال أول 48 ساعة من النشر.</li>
+                <li><strong>إخلاء المسؤولية:</strong> "الواجهة السعودية" هي منصة لعرض المساحات الإعلانية فقط، ولا نتحمل أي مسؤولية قانونية تجاه محتوى الروابط الخارجية للمعلنين أو الخدمات التي يقدمونها.</li>
+                <li><strong>مدة الإعلان:</strong> يبقى الإعلان منشوراً في الصفحة طيلة فترة تشغيل المشروع (التزام كحد أدنى لمدة 3 سنوات من تاريخ الإطلاق).</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- سكربت التصفية التفاعلية + التكبير والتصغير + نافذة الشروط -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. برمجة التصفية التفاعلية للأقسام
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const adBlocks = document.querySelectorAll('.ad-block');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    adBlocks.forEach(ad => {
+                        if (filterValue === 'all') {
+                            ad.classList.remove('dimmed');
+                        } else {
+                            if (ad.getAttribute('data-category') === filterValue) {
+                                ad.classList.remove('dimmed');
+                            } else {
+                                ad.classList.add('dimmed');
+                            }
+                        }
+                    });
+                });
+            });
+
+            // 2. برمجة التكبير والتصغير
+            let currentScale = 1;
+            const grid = document.getElementById('pixelGrid');
+            const zoomInBtn = document.getElementById('zoom-in');
+            const zoomOutBtn = document.getElementById('zoom-out');
+            const zoomResetBtn = document.getElementById('zoom-reset');
+
+            zoomInBtn.addEventListener('click', () => {
+                if (currentScale < 3) {
+                    currentScale += 0.2;
+                    grid.style.transform = `scale(${currentScale})`;
+                }
+            });
+
+            zoomOutBtn.addEventListener('click', () => {
+                if (currentScale > 1) {
+                    currentScale -= 0.2;
+                    if(currentScale < 1) currentScale = 1; 
+                    grid.style.transform = `scale(${currentScale})`;
+                }
+            });
+
+            zoomResetBtn.addEventListener('click', () => {
+                currentScale = 1;
+                grid.style.transform = `scale(${currentScale})`;
+            });
+
+            // 3. برمجة نافذة الشروط والأحكام
+            const termsModal = document.getElementById('termsModal');
+            const openTermsBtn = document.getElementById('openTerms');
+            const closeTermsBtn = document.getElementById('closeTerms');
+
+            openTermsBtn.addEventListener('click', () => {
+                termsModal.style.display = 'flex';
+            });
+
+            closeTermsBtn.addEventListener('click', () => {
+                termsModal.style.display = 'none';
+            });
+
+            // إغلاق النافذة عند الضغط خارجها
+            window.addEventListener('click', (e) => {
+                if (e.target === termsModal) {
+                    termsModal.style.display = 'none';
+                }
+            });
+
+        });
+    </script>
 </body>
 </html>
