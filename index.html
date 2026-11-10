@@ -165,7 +165,7 @@
             align-items: flex-start;
             gap: 20px; /* الفراغ الأساسي الذي ستجلس فيه الأزرار */
             padding: 0 20px;
-            overflow-x: auto;
+            /* تم إزالة overflow-x: auto من هنا لأنها كانت تمنع الأزرار من الطفو (sticky) */
         }
 
         /* الزخارف الجانبية */
@@ -205,17 +205,17 @@
             max-width: 1000px;
         }
 
-        /* أزرار التكبير العائمة (بالضبط في الفراغ) */
+        /* أزرار التكبير العائمة (تم تصحيح الكود لتطفو بنعومة داخل الفراغ) */
         .zoom-controls-wrapper {
             position: sticky;
             top: 120px; /* المسافة من الأعلى عند النزول بالصفحة */
-            float: right; /* سحبها لليمين */
-            margin-right: -24px; /* سحبها للخارج لتستقر بالضبط في الفراغ (20 بكسل) */
+            z-index: 100;
             width: 20px;
+            height: 0; /* لكي لا تدفع الشبكة للأسفل */
+            margin-right: -25px; /* سحبها للخارج لتستقر بالضبط في الفراغ */
             display: flex;
             flex-direction: column;
             gap: 5px;
-            z-index: 100;
         }
 
         .zoom-btn-v {
@@ -387,7 +387,7 @@
             .main-layout {
                 padding: 0 10px;
             }
-            /* في الجوال لا يوجد فراغ لأن الزخارف مخفية، لذا ندخل الأزرار للداخل قليلاً ونكبرها للمس */
+            /* في الجوال لا يوجد فراغ لأن الزخارف مخفية، لذا ندخل الأزرار للداخل قليلاً لتظهر فوق الشبكة */
             .zoom-controls-wrapper {
                 margin-right: 5px;
                 width: 28px;
@@ -459,7 +459,7 @@
         <!-- الوسط: الحاوية الخارجية -->
         <div class="grid-outer-wrapper">
             
-            <!-- أزرار التكبير العائمة (الآن في الفراغ وتطفو عند النزول) -->
+            <!-- أزرار التكبير العائمة (الآن في الفراغ وتطفو بنعومة) -->
             <div class="zoom-controls-wrapper">
                 <button id="zoom-in" class="zoom-btn-v" title="تكبير">➕</button>
                 <button id="zoom-reset" class="zoom-btn-v" title="إعادة الضبط" style="font-size: 0.9rem;">🔄</button>
