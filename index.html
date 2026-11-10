@@ -427,4 +427,121 @@
 
                     <!-- إعلان تجريبي 3 (سيارات) -->
                     <a href="#" class="ad-block" data-category="cars" title="وكالة سيارات"
-                       style="width: 150px; height: 50px; right: 300px; top: 200px; background-color: #C5A059
+                       style="width: 150px; height: 50px; right: 300px; top: 200px; background-color: #C5A059; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold; border-radius: 4px;">
+                       إعلان سيارات
+                    </a>
+
+                </main>
+            </div>
+        </div>
+
+        <!-- الجانب الأيسر: الزخارف الجصية -->
+        <aside class="side-pattern ahsa-left">
+            مساحة الزخارف الأحسائية
+        </aside>
+    </div>
+
+    <!-- زر الحجز السفلي -->
+    <a href="https://wa.me/966599156610?text=أهلاً،%20أرغب%20بحجز%20مساحة%20إعلانية%20في%20الواجهة%20السعودية" target="_blank" class="cta-button" style="margin-top: 25px;">
+        احجز مساحتك الآن عبر الواتساب
+    </a>
+
+    <!-- التذييل مع رابط الشروط -->
+    <footer>
+        © 2026 الواجهة السعودية. جميع الحقوق محفوظة. <br>
+        <span class="terms-link" id="openTerms">الشروط والأحكام</span>
+    </footer>
+
+    <!-- نافذة الشروط والأحكام (Modal) المحدثة -->
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeTerms">×</button>
+            <h2>الشروط والأحكام</h2>
+            <ol>
+                <li><strong>سياسة المحتوى:</strong> يلتزم المعلن بعدم نشر أي شعار أو رابط يخالف الأنظمة والقوانين في المملكة العربية السعودية (مثل: المواقع المشبوهة، الاحتيال المالي، أو المحتوى الخادش). يحق للإدارة إزالة أي إعلان مخالف فوراً دون استرداد المبلغ.</li>
+                <li><strong>الاسترجاع والتعديل:</strong> بمجرد تحويل المبلغ ونشر البلوك الإعلاني، لا يمكن استرجاع المبلغ نهائياً. يُسمح للمعلن بتعديل الرابط أو الشعار (مرة واحدة فقط مجاناً) خلال أول 48 ساعة من النشر.</li>
+                <li><strong>رسوم التعديلات اللاحقة:</strong> أي طلب لتعديل الرابط أو الشعار بعد مرور 48 ساعة من النشر الأولي سيخضع لرسوم إدارية قدرها (25 ريال سعودي) لكل عملية تعديل.</li>
+                <li><strong>إخلاء المسؤولية:</strong> "الواجهة السعودية" هي منصة لعرض المساحات الإعلانية فقط، ولا نتحمل أي مسؤولية قانونية تجاه محتوى الروابط الخارجية للمعلنين أو الخدمات التي يقدمونها.</li>
+                <li><strong>مدة الإعلان:</strong> يبقى الإعلان منشوراً في الصفحة طيلة فترة تشغيل المشروع (التزام كحد أدنى لمدة 3 سنوات من تاريخ الإطلاق).</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- السكربتات المجمعة -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. التصفية التفاعلية للأقسام
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const adBlocks = document.querySelectorAll('.ad-block');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    adBlocks.forEach(ad => {
+                        if (filterValue === 'all') {
+                            ad.classList.remove('dimmed');
+                        } else {
+                            if (ad.getAttribute('data-category') === filterValue) {
+                                ad.classList.remove('dimmed');
+                            } else {
+                                ad.classList.add('dimmed');
+                            }
+                        }
+                    });
+                });
+            });
+
+            // 2. التكبير والتصغير
+            let currentScale = 1;
+            const grid = document.getElementById('pixelGrid');
+            const zoomInBtn = document.getElementById('zoom-in');
+            const zoomOutBtn = document.getElementById('zoom-out');
+            const zoomResetBtn = document.getElementById('zoom-reset');
+
+            zoomInBtn.addEventListener('click', () => {
+                if (currentScale < 3) {
+                    currentScale += 0.2;
+                    grid.style.transform = `scale(${currentScale})`;
+                }
+            });
+
+            zoomOutBtn.addEventListener('click', () => {
+                if (currentScale > 1) {
+                    currentScale -= 0.2;
+                    if(currentScale < 1) currentScale = 1; 
+                    grid.style.transform = `scale(${currentScale})`;
+                }
+            });
+
+            zoomResetBtn.addEventListener('click', () => {
+                currentScale = 1;
+                grid.style.transform = `scale(${currentScale})`;
+            });
+
+            // 3. نافذة الشروط والأحكام
+            const termsModal = document.getElementById('termsModal');
+            const openTermsBtn = document.getElementById('openTerms');
+            const closeTermsBtn = document.getElementById('closeTerms');
+
+            openTermsBtn.addEventListener('click', () => {
+                termsModal.style.display = 'flex';
+            });
+
+            closeTermsBtn.addEventListener('click', () => {
+                termsModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target === termsModal) {
+                    termsModal.style.display = 'none';
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
