@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الواجهة السعودية - دليل الأعمال الرقمي</title>
     <style>
-        /* الألوان الأساسية - الهوية السعودية */
+        /* ---------- الألوان الأساسية والتنسيق العام ---------- */
         :root {
             --saudi-green: #006C35;
             --light-green: #118D4D;
@@ -116,13 +116,13 @@
             color: #E2E8F0;
         }
 
-        /* ---------- شريط التصفية التفاعلية ---------- */
+        /* ---------- شريط التصفية التفاعلية للأقسام ---------- */
         .filter-bar {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* تم تقليل الهامش لإفساح المجال للزر العلوي */
             padding: 0 20px;
         }
 
@@ -144,6 +144,28 @@
             box-shadow: 0 4px 10px rgba(0, 108, 53, 0.3);
         }
 
+        /* ---------- أزرار الحجز (العلوي والسفلي) ---------- */
+        .cta-button {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 12px 35px;
+            background-color: var(--saudi-green);
+            color: var(--pure-white);
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid var(--saudi-green);
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 108, 53, 0.2);
+        }
+
+        .cta-button:hover {
+            background-color: var(--pure-white);
+            color: var(--saudi-green);
+        }
+
         /* ---------- تخطيط الصفحة الرئيسي وأزرار التكبير ---------- */
         .main-layout {
             display: flex;
@@ -152,6 +174,7 @@
             gap: 20px;
             padding: 0 20px;
             overflow-x: auto;
+            margin-top: 20px;
         }
 
         .side-pattern {
@@ -216,18 +239,18 @@
         .grid-scroll-wrapper {
             width: 1000px;
             height: 1000px;
-            overflow: auto; /* لإظهار شريط التمرير عند التكبير */
+            overflow: auto;
             border: 3px solid var(--saudi-green);
             box-shadow: 0 0 20px rgba(0, 108, 53, 0.15);
             background-color: var(--pure-white);
         }
 
-        /* شبكة المليون بكسل (تدعم التكبير) */
+        /* شبكة المليون بكسل */
         .pixel-grid-container {
             width: 1000px;
             height: 1000px;
             position: relative;
-            transform-origin: top right; /* التكبير يبدأ من الزاوية اليمنى لأن الاتجاه RTL */
+            transform-origin: top right;
             transition: transform 0.3s ease;
             background-image: 
                 linear-gradient(to right, #e2e8f0 1px, transparent 1px),
@@ -258,28 +281,7 @@
             filter: grayscale(100%);
         }
 
-        /* ---------- أزرار وتذييل الصفحة ---------- */
-        .cta-button {
-            display: inline-block;
-            margin: 30px 0 10px 0;
-            padding: 15px 40px;
-            background-color: var(--saudi-green);
-            color: var(--pure-white);
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 8px;
-            border: 2px solid var(--saudi-green);
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 108, 53, 0.2);
-        }
-
-        .cta-button:hover {
-            background-color: var(--pure-white);
-            color: var(--saudi-green);
-        }
-
+        /* ---------- التذييل ونافذة الشروط ---------- */
         footer {
             margin: 20px 0 40px 0;
             font-size: 0.9rem;
@@ -293,7 +295,6 @@
             font-weight: bold;
         }
 
-        /* ---------- نافذة الشروط والأحكام المنبثقة ---------- */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -385,6 +386,13 @@
         <button class="filter-btn" data-filter="agriculture">زراعة وبيئة</button>
     </div>
 
+    <!-- زر الحجز العلوي (مباشرة تحت الأقسام وقبل الشبكة) -->
+    <div style="text-align: center;">
+        <a href="https://wa.me/966599156610?text=أهلاً،%20أرغب%20بحجز%20مساحة%20إعلانية%20في%20الواجهة%20السعودية" target="_blank" class="cta-button">
+            احجز مساحتك الآن
+        </a>
+    </div>
+
     <div class="main-layout">
         <!-- الجانب الأيمن: نقوش السدو -->
         <aside class="side-pattern sadu-right">
@@ -419,121 +427,4 @@
 
                     <!-- إعلان تجريبي 3 (سيارات) -->
                     <a href="#" class="ad-block" data-category="cars" title="وكالة سيارات"
-                       style="width: 150px; height: 50px; right: 300px; top: 200px; background-color: #C5A059; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold; border-radius: 4px;">
-                       إعلان سيارات
-                    </a>
-
-                </main>
-            </div>
-        </div>
-
-        <!-- الجانب الأيسر: الزخارف الجصية -->
-        <aside class="side-pattern ahsa-left">
-            مساحة الزخارف الأحسائية
-        </aside>
-    </div>
-
-    <!-- زر التواصل المباشر للحجز -->
-    <a href="https://wa.me/966599156610?text=أهلاً،%20أرغب%20بحجز%20مساحة%20إعلانية%20في%20الواجهة%20السعودية" target="_blank" class="cta-button">
-        احجز مساحتك الآن عبر الواتساب
-    </a>
-
-    <!-- التذييل مع رابط الشروط -->
-    <footer>
-        © 2026 الواجهة السعودية. جميع الحقوق محفوظة. <br>
-        <span class="terms-link" id="openTerms">الشروط والأحكام</span>
-    </footer>
-
-    <!-- نافذة الشروط والأحكام (Modal) -->
-    <div class="modal-overlay" id="termsModal">
-        <div class="modal-content">
-            <button class="close-modal" id="closeTerms">×</button>
-            <h2>الشروط والأحكام</h2>
-            <ol>
-                <li><strong>سياسة المحتوى:</strong> يلتزم المعلن بعدم نشر أي شعار أو رابط يخالف الأنظمة والقوانين في المملكة العربية السعودية (مثل: المواقع المشبوهة، الاحتيال المالي، أو المحتوى الخادش). يحق للإدارة إزالة أي إعلان مخالف فوراً دون استرداد المبلغ.</li>
-                <li><strong>الاسترجاع والتعديل:</strong> بمجرد تحويل المبلغ ونشر البلوك الإعلاني، لا يمكن استرجاع المبلغ نهائياً. يُسمح للمعلن بتعديل الرابط أو الشعار (مرة واحدة فقط مجاناً) خلال أول 48 ساعة من النشر.</li>
-                <li><strong>إخلاء المسؤولية:</strong> "الواجهة السعودية" هي منصة لعرض المساحات الإعلانية فقط، ولا نتحمل أي مسؤولية قانونية تجاه محتوى الروابط الخارجية للمعلنين أو الخدمات التي يقدمونها.</li>
-                <li><strong>مدة الإعلان:</strong> يبقى الإعلان منشوراً في الصفحة طيلة فترة تشغيل المشروع (التزام كحد أدنى لمدة 3 سنوات من تاريخ الإطلاق).</li>
-            </ol>
-        </div>
-    </div>
-
-    <!-- سكربت التصفية التفاعلية + التكبير والتصغير + نافذة الشروط -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // 1. برمجة التصفية التفاعلية للأقسام
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const adBlocks = document.querySelectorAll('.ad-block');
-
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    const filterValue = btn.getAttribute('data-filter');
-
-                    adBlocks.forEach(ad => {
-                        if (filterValue === 'all') {
-                            ad.classList.remove('dimmed');
-                        } else {
-                            if (ad.getAttribute('data-category') === filterValue) {
-                                ad.classList.remove('dimmed');
-                            } else {
-                                ad.classList.add('dimmed');
-                            }
-                        }
-                    });
-                });
-            });
-
-            // 2. برمجة التكبير والتصغير
-            let currentScale = 1;
-            const grid = document.getElementById('pixelGrid');
-            const zoomInBtn = document.getElementById('zoom-in');
-            const zoomOutBtn = document.getElementById('zoom-out');
-            const zoomResetBtn = document.getElementById('zoom-reset');
-
-            zoomInBtn.addEventListener('click', () => {
-                if (currentScale < 3) {
-                    currentScale += 0.2;
-                    grid.style.transform = `scale(${currentScale})`;
-                }
-            });
-
-            zoomOutBtn.addEventListener('click', () => {
-                if (currentScale > 1) {
-                    currentScale -= 0.2;
-                    if(currentScale < 1) currentScale = 1; 
-                    grid.style.transform = `scale(${currentScale})`;
-                }
-            });
-
-            zoomResetBtn.addEventListener('click', () => {
-                currentScale = 1;
-                grid.style.transform = `scale(${currentScale})`;
-            });
-
-            // 3. برمجة نافذة الشروط والأحكام
-            const termsModal = document.getElementById('termsModal');
-            const openTermsBtn = document.getElementById('openTerms');
-            const closeTermsBtn = document.getElementById('closeTerms');
-
-            openTermsBtn.addEventListener('click', () => {
-                termsModal.style.display = 'flex';
-            });
-
-            closeTermsBtn.addEventListener('click', () => {
-                termsModal.style.display = 'none';
-            });
-
-            // إغلاق النافذة عند الضغط خارجها
-            window.addEventListener('click', (e) => {
-                if (e.target === termsModal) {
-                    termsModal.style.display = 'none';
-                }
-            });
-
-        });
-    </script>
-</body>
-</html>
+                       style="width: 150px; height: 50px; right: 300px; top: 200px; background-color: #C5A059
